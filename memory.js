@@ -2,7 +2,7 @@ const fs = require('fs').promises;
 const TextDecoder = require('util').TextDecoder;
 
 (async function() {
-    const textDecoder = new TextDecoder("utf8");
+    const textDecoder = new TextDecoder('utf8');
     const wasmFile = await fs.readFile('memory.wasm');
     const wasm = await WebAssembly.instantiate(wasmFile);
 
