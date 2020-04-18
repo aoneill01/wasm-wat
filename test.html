@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Test WASM</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    <script>
+        (async function () {
+            const max = 100_000_000;
+
+            const obj = await WebAssembly.instantiateStreaming(fetch("test.wasm"))
+
+            for (let j = 0; j < 10; j++) {
+                console.time("wasm");
+                console.log(obj.instance.exports._Z5dummyi(max));
+                console.timeEnd("wasm");
+            }
+
+            for (let j = 0; j < 10; j++) {
+                console.time("js");
+                let result = 0;
+                for (let i = 0; i < max; i++) {
+                    result += (i & 0xf);
+                }
+                console.log(result);
+                console.timeEnd("js");
+            }
+        })();
+    </script>
+
+</body>
+</html>

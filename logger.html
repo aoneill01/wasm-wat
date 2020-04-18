@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Logger WASM</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    <script>
+        (async function () {
+            const imports = {
+                console: {
+                    log: console.log
+                }
+            };
+
+            const obj = await WebAssembly.instantiateStreaming(fetch("logger.wasm"), imports)
+            debugger;
+            obj.instance.exports.logIt();
+        })();
+    </script>
+
+</body>
+</html>

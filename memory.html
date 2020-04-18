@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Test WASM</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body>
+    <script>
+        (async function () {
+            const textDecoder = new TextDecoder("utf8");
+            // Instantiate the WebAssembly
+            const wasm = await WebAssembly.instantiateStreaming(
+                fetch("memory.wasm")
+            );
+
+            // Get the exported memory
+            const memory = wasm.instance.exports.memory;
+            // Reference bytes [0...2]
+            const buffer = new Uint8Array(memory.buffer, 0, 3);
+
+            // Print the content before
+            console.log(textDecoder.decode(buffer)); // HAL
+
+            // Call the exported incrementLetters function
+            wasm.instance.exports.incrementLetters();
+
+            // Print the content after
+            console.log(textDecoder.decode(buffer)); // IBM
+        })();
+    </script>
+
+</body>
+
+</html>
