@@ -11,11 +11,11 @@
         (async function () {
             const max = 100_000_000;
 
-            const obj = await WebAssembly.instantiateStreaming(fetch("test.wasm"))
+            const { instance } = await WebAssembly.instantiateStreaming(fetch("test.wasm"))
 
             for (let j = 0; j < 10; j++) {
                 console.time("wasm");
-                console.log(obj.instance.exports._Z5dummyi(max));
+                console.log(instance.exports._Z5dummyi(max));
                 console.timeEnd("wasm");
             }
 

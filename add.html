@@ -9,8 +9,8 @@
 <body>
     <script>
         (async function() {
-            const obj = await WebAssembly.instantiateStreaming(fetch("add.wasm"));
-            console.log(obj.instance.exports.add(1, 2));
+            const { instance } = await WebAssembly.instantiateStreaming(fetch("add.wasm"));
+            console.log(instance.exports.add(1, 2));
         })();
     </script>
 </body>

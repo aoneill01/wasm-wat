@@ -12,12 +12,12 @@
     <script>
         (async function () {
             // Instantiate the WebAssembly
-            const wasm = await WebAssembly.instantiateStreaming(
+            const { instance } = await WebAssembly.instantiateStreaming(
                 fetch("frog.wasm")
             );
 
             for (let i = 1; i <= 15; i++) {
-                console.log(i, wasm.instance.exports.jumpTo(i));
+                console.log(i, instance.exports.jumpTo(i));
             }
         })();
     </script>

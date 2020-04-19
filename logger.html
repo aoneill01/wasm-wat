@@ -15,9 +15,8 @@
                 }
             };
 
-            const obj = await WebAssembly.instantiateStreaming(fetch("logger.wasm"), imports)
-            debugger;
-            obj.instance.exports.logIt();
+            const { instance } = await WebAssembly.instantiateStreaming(fetch("logger.wasm"), imports)
+            instance.exports.logIt();
         })();
     </script>
 
